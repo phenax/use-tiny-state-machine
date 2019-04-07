@@ -11,29 +11,9 @@ A lightweight react hook to create and work with state machines
 
 ## Install
 
-#### To add the project to your project
+#### Import
 ```bash
 yarn add @phenax/use-state-machine
-```
-
-## Usage
-
-#### Import it to your file
-```js
-import { createPipe, createPipes, fromClassPrototype, compose } from '@phenax/use-state-machine';
-// Note: compose is a regular lodash-like compose function
-```
-
-# useStateMachine
-A react hook to work with finite state machines.
-
-For more information about state charts and state machines checkout https://github.com/davidkpiano/xstate
-
-
-## Import
-
-```js
-import useStateMachine from '~/hooks/useStateMachine';
 ```
 
 
