@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:7.10
+      - image: circleci/node:10.12
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -39,5 +39,5 @@ jobs:
       - run:
           name: Coverage
           command: yarn coverage:ci
-          environment:
-            CODECOV_TOKEN: 1cc28c23-ea43-4955-8260-f5ccf2a08823
+          # environment:
+          #   CODECOV_TOKEN: 1cc28c23-ea43-4955-8260-f5ccf2a08823
