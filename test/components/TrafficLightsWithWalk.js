@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useStateMachine from 'hooks/useStateMachine';
+import useStateMachine from '../../src';
 
 // eslint-disable-next-line react/prop-types
 const TrafficLight = ({ onEntry }) => {

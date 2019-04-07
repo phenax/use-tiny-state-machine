@@ -8,16 +8,10 @@ function callValue(x) {
   return typeof x === 'function' ? x.apply(null, sliceArgs(arguments, 1)) : x;
 }
 
-const state = xsx => xsx;/*({
-  value: xsx[0],
-  setState: xsx[1],
-});
-*/
-
 function useStateMachine(stateChart) {
-  const state = state(useState(stateChart.initial)); // :: State<String>
-  const contet = state(useState(stateChart.context)); // :: State<Context>
-  const [pendingAction, setPendingAction] = state(useState(null)); // :: State<[Function, ...*]>
+  const [state, setState] = (useState(stateChart.initial)); // :: State<String>
+  const [context, updateContext] = (useState(stateChart.context)); // :: State<Context>
+  const [pendingAction, setPendingAction] = (useState(null)); // :: State<[Function, ...*]>
 
   useEffect(() => setState(stateChart.initial), [stateChart.initial]);
 
