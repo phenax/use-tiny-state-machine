@@ -20,7 +20,7 @@ yarn add @phenax/use-state-machine
 ## API
 
 ```haskell
-useStateMachine :: (StateChart, [*]) -> StateMachine
+useStateMachine :: StateChart -> StateMachine
 ```
 
 ```js
