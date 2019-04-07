@@ -9,9 +9,9 @@ function callValue(x) {
 }
 
 function useStateMachine(stateChart) {
-  const [state, setState] = (useState(stateChart.initial)); // :: State<String>
-  const [context, updateContext] = (useState(stateChart.context)); // :: State<Context>
-  const [pendingAction, setPendingAction] = (useState(null)); // :: State<[Function, ...*]>
+  const { 0: state, 1: setState } = useState(stateChart.initial); // :: State<String>
+  const { 0: context, 1: updateContext } = useState(stateChart.context); // :: State<Context>
+  const { 0: pendingAction, 1: setPendingAction } = useState(null); // :: State<[Function, ...*]>
 
   useEffect(() => setState(stateChart.initial), [stateChart.initial]);
 
@@ -22,9 +22,9 @@ function useStateMachine(stateChart) {
 
   useEffect(() => {
     if (!pendingAction) return noop;
-    const [ action, args = [] ] = pendingAction;
+    const { 0: action, 1: args = [] } = pendingAction;
     setPendingAction(null);
-    return (action || noop)(stateMachine, ...args);
+    return (action || noop).apply(null, [stateMachine].concat(args));
   }, [pendingAction]);
 
   // dispatch :: (String, ...*) -> ()
@@ -42,10 +42,10 @@ function useStateMachine(stateChart) {
     }
 
     // TODO: Cleanup for beforeStateChange
-    beforeStateChange && beforeStateChange(stateMachine, ...args);
+    beforeStateChange && beforeStateChange.apply(null, [stateMachine].concat(args));
     action && setPendingAction([action, args]);
     target && setState(target);
-    newContext && updateContext(c => ({ ...c, ...newContext }));
+    newContext && updateContext(newContext);
   }
 
   // cata :: { [key: String]: String -> b } -> b

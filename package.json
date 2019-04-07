@@ -43,7 +43,8 @@
     "codecov": "^3.1.0",
     "jest": "^23.6.0",
     "react": "^16.8.6",
-    "react-test-render-fns": "^0.0.0"
+    "react-test-render-fns": "^0.0.0",
+    "terser": "^3.17.0"
   },
   "peerDependencies": {
     "react": "^16.8.6"
