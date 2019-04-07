@@ -1,6 +1,6 @@
 {
   "name": "@phenax/use-state-machine",
-  "version": "0.0.4",
+  "version": "0.0.0",
   "description": "Utility functions to convert class-based api's to parameter-based functions",
   "main": "index.js",
   "repository": "https://github.com/phenax/use-state-machine",
