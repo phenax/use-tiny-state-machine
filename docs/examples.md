@@ -1,23 +1,4 @@
-
-# useStateMachine
-A lightweight react hook to create and work with state machines
-
-[![CircleCI](https://img.shields.io/circleci/project/github/phenax/use-state-machine/master.svg?style=for-the-badge)](https://circleci.com/gh/phenax/use-state-machine)
-[![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@phenax/use-state-machine.svg?style=for-the-badge)](https://www.npmjs.com/package/@phenax/use-state-machine)
-[![Codecov](https://img.shields.io/codecov/c/github/phenax/use-state-machine.svg?style=for-the-badge)](https://codecov.io/gh/phenax/use-state-machine)
-
-
-[Read the documentation for more information](https://github.com/phenax/use-state-machine/tree/master/docs)
-
-## Install
-
-#### Import
-```bash
-yarn add @phenax/use-state-machine
-```
-
-
-## Examples
+# Examples
 
 ### Manual traffic lights
 
@@ -117,6 +98,103 @@ function TrafficLights() {
   );
 }
 ```
+
+### Automated traffic lights with transition actions
+The difference between using action and onEntry is that onEntry is called every time you enter a particular state where as transition actions are called when a particular action is triggered. The target property does the same as what it did in the previous examples.
+Transition action is called with the state machine instance as well as any left over arguements from the disptach call.
+
+In the example below, onNext will be called whenever the `NEXT` transition is dispatched.
+
+```js
+const stateChart = {
+  id: "traffixLight",
+  initial: "green",
+  states: {
+    green: {
+      on: {
+        NEXT: {
+          target: "red",
+          action: onNext,
+        },
+      }
+    },
+    orange: {
+      on: {
+        NEXT: {
+          target: "green",
+          action: onNext,
+        },
+      }
+    },
+    red: {
+      on: {
+        NEXT: {
+          target: "orange",
+          action: onNext,
+        },
+      }
+    }
+  }
+};
+
+function onNext({ dispatch }) {
+  const timer = setTimeout(() => dispatch('NEXT'), 1000);
+  return () => clearTimeout(timer);
+}
+```
+
+
+### Multiple linked state charts
+Unlike xstate, this library only supports 1D level of nesting for state machines but you can achieve that by using multiple `useStateMachine`.
+
+```js
+const TrafficLight = ({ onEntry }) => {
+  const trafficLight = useStateMachine({
+    id: 'trafficLight',
+    initial: 'green',
+    states: {
+      green: { on: { NEXT: 'red' } },
+      red: { on: { NEXT: 'orange' } },
+      orange: { on: { NEXT: 'green' } },
+    },
+  });
+
+  const pedestrianSign = useStateMachine({
+    id: 'pedestrianSign',
+    initial: trafficLight.cata({
+      red: 'walk',
+      _: 'stop',
+    }),
+    states: {
+      stop: {
+        onEntry,
+        on: {
+          WALK: {
+            action: () => {
+              const timer = setTimeout(() => trafficLight.dispatch('NEXT'), 1000);
+              return () => clearTimeout(timer);
+            },
+          },
+        },
+      },
+      walk: {
+        onEntry,
+        on: {
+          WALK: { action: () => {} },
+        },
+      },
+    },
+  });
+
+  const onWalkButtonClick = pedestrianSign.dispatch('WALK');
+
+  return (
+    /* ... */
+  );
+};
+
+```
+
 
 
 ### Fetching data
