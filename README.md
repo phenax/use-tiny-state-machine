@@ -1,6 +1,6 @@
 
 # useTinyStateMachine
-A lightweight (~700 bytes) react hook to create and work with state machines
+A tiny (~700 bytes) react hook to help you write finite state machines
 
 [![CircleCI](https://img.shields.io/circleci/project/github/phenax/use-tiny-state-machine/master.svg?style=for-the-badge)](https://circleci.com/gh/phenax/use-tiny-state-machine)
 [![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/use-tiny-state-machine.svg?style=for-the-badge)](https://www.npmjs.com/package/use-tiny-state-machine)
