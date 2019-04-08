@@ -1,12 +1,12 @@
 # API
 
 ```haskell
-useStateMachine :: StateChart -> StateMachine
+useTinyStateMachine :: StateChart -> StateMachine
 ```
 
 ```js
 const Component = () => {
-  const { matches, cata, dispatch, state } = useStateMachine(stateChart);
+  const { matches, cata, dispatch, state } = useTinyStateMachine(stateChart);
   return (
     /* ... */
   );

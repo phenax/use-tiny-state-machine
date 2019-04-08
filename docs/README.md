@@ -1,16 +1,16 @@
-# useStateMachine
+# useTinyStateMachine
 A lightweight react hook to create and work with state machines
 
-[![CircleCI](https://img.shields.io/circleci/project/github/phenax/use-state-machine/master.svg?style=for-the-badge)](https://circleci.com/gh/phenax/use-state-machine)
-[![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@phenax/use-state-machine.svg?style=for-the-badge)](https://www.npmjs.com/package/@phenax/use-state-machine)
-[![Codecov](https://img.shields.io/codecov/c/github/phenax/use-state-machine.svg?style=for-the-badge)](https://codecov.io/gh/phenax/use-state-machine)
+[![CircleCI](https://img.shields.io/circleci/project/github/phenax/use-tiny-state-machine/master.svg?style=for-the-badge)](https://circleci.com/gh/phenax/use-tiny-state-machine)
+[![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/use-tiny-state-machine.svg?style=for-the-badge)](https://www.npmjs.com/package/use-tiny-state-machine)
+[![Codecov](https://img.shields.io/codecov/c/github/phenax/use-tiny-state-machine.svg?style=for-the-badge)](https://codecov.io/gh/phenax/use-tiny-state-machine)
 
 
 ## Install
 
 #### Import
 ```bash
-yarn add @phenax/use-state-machine
+yarn add use-tiny-state-machine
 ```
 
 ## Motivation

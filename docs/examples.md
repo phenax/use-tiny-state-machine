@@ -3,7 +3,7 @@
 ### Manual traffic lights
 
 ```js
-import useStateMachine from '~/hooks/useStateMachine';
+import useTinyStateMachine from 'use-tiny-state-machine';
 
 const stateChart = {
   id: 'traffixLight',
@@ -16,7 +16,7 @@ const stateChart = {
 };
 
 export default function ManualTrafficLights() {
-  const { cata, state, dispatch } = useStateMachine(stateChart);
+  const { cata, state, dispatch } = useTinyStateMachine(stateChart);
 
   return (
     <Fragment>
@@ -43,7 +43,7 @@ export default function ManualTrafficLights() {
 `onEntry` is called every time you enter a given state. `onEntry` is called with the current state machine instance.
 
 ```js
-import useStateMachine from '~/hooks/useStateMachine';
+import useTinyStateMachine from 'use-tiny-state-machine';
 
 const stateChart = {
   id: "traffixLight",
@@ -76,7 +76,7 @@ function waitForNextLight({ dispatch }) {
 }
 
 function TrafficLights() {
-  const { cata, state, dispatch } = useStateMachine(stateChart);
+  const { cata, state, dispatch } = useTinyStateMachine(stateChart);
 
   return (
     <Fragment>
@@ -145,11 +145,11 @@ function onNext({ dispatch }) {
 
 
 ### Multiple linked state charts
-Unlike xstate, this library only supports 1D level of nesting for state machines but you can achieve that by using multiple `useStateMachine`.
+Unlike xstate, this library only supports 1D level of nesting for state machines but you can achieve that by using multiple `useTinyStateMachine`.
 
 ```js
 const TrafficLight = ({ onEntry }) => {
-  const trafficLight = useStateMachine({
+  const trafficLight = useTinyStateMachine({
     id: 'trafficLight',
     initial: 'green',
     states: {
@@ -159,7 +159,7 @@ const TrafficLight = ({ onEntry }) => {
     },
   });
 
-  const pedestrianSign = useStateMachine({
+  const pedestrianSign = useTinyStateMachine({
     id: 'pedestrianSign',
     initial: trafficLight.cata({
       red: 'walk',
@@ -237,7 +237,7 @@ const stateChart = {
 };
 
 const UserData = () => {
-  const { context, dispatch, cata } = useStateMachine(stateChart);
+  const { context, dispatch, cata } = useTinyStateMachine(stateChart);
   return (
     <div>
       {cata({

@@ -1,19 +1,19 @@
 
-# useStateMachine
-A lightweight react hook to create and work with state machines
+# useTinyStateMachine
+A lightweight (~700 bytes) react hook to create and work with state machines
 
-[![CircleCI](https://img.shields.io/circleci/project/github/phenax/use-state-machine/master.svg?style=for-the-badge)](https://circleci.com/gh/phenax/use-state-machine)
-[![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/@phenax/use-state-machine.svg?style=for-the-badge)](https://www.npmjs.com/package/@phenax/use-state-machine)
-[![Codecov](https://img.shields.io/codecov/c/github/phenax/use-state-machine.svg?style=for-the-badge)](https://codecov.io/gh/phenax/use-state-machine)
+[![CircleCI](https://img.shields.io/circleci/project/github/phenax/use-tiny-state-machine/master.svg?style=for-the-badge)](https://circleci.com/gh/phenax/use-tiny-state-machine)
+[![npm bundle size (minified + gzip)](https://img.shields.io/bundlephobia/minzip/use-tiny-state-machine.svg?style=for-the-badge)](https://www.npmjs.com/package/use-tiny-state-machine)
+[![Codecov](https://img.shields.io/codecov/c/github/phenax/use-tiny-state-machine.svg?style=for-the-badge)](https://codecov.io/gh/phenax/use-tiny-state-machine)
 
 
-[Read the documentation for more information](https://github.com/phenax/use-state-machine/tree/master/docs)
+[Read the documentation for more information](https://github.com/phenax/use-tiny-state-machine/tree/master/docs)
 
 ## Install
 
 #### Import
 ```bash
-yarn add @phenax/use-state-machine
+yarn add use-tiny-state-machine
 ```
 
 
@@ -22,7 +22,7 @@ yarn add @phenax/use-state-machine
 ### Manual traffic lights
 
 ```js
-import useStateMachine from '~/hooks/useStateMachine';
+import useTinyStateMachine from 'use-tiny-state-machine';
 
 const stateChart = {
   id: 'traffixLight',
@@ -35,7 +35,7 @@ const stateChart = {
 };
 
 export default function ManualTrafficLights() {
-  const { cata, state, dispatch } = useStateMachine(stateChart);
+  const { cata, state, dispatch } = useTinyStateMachine(stateChart);
 
   return (
     <Fragment>
@@ -62,7 +62,7 @@ export default function ManualTrafficLights() {
 `onEntry` is called every time you enter a given state. `onEntry` is called with the current state machine instance.
 
 ```js
-import useStateMachine from '~/hooks/useStateMachine';
+import useTinyStateMachine from 'use-tiny-state-machine';
 
 const stateChart = {
   id: "traffixLight",
@@ -95,7 +95,7 @@ function waitForNextLight({ dispatch }) {
 }
 
 function TrafficLights() {
-  const { cata, state, dispatch } = useStateMachine(stateChart);
+  const { cata, state, dispatch } = useTinyStateMachine(stateChart);
 
   return (
     <Fragment>
@@ -159,7 +159,7 @@ const stateChart = {
 };
 
 const UserData = () => {
-  const { context, dispatch, cata } = useStateMachine(stateChart);
+  const { context, dispatch, cata } = useTinyStateMachine(stateChart);
   return (
     <div>
       {cata({

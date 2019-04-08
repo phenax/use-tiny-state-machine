@@ -1,9 +1,9 @@
 {
-  "name": "@phenax/use-state-machine",
+  "name": "use-tiny-state-machine",
   "version": "0.0.1",
-  "description": "Utility functions to convert class-based api's to parameter-based functions",
+  "description": "A lightweight (~700 bytes) react hook to create and work with state machines",
   "main": "index.js",
-  "repository": "https://github.com/phenax/use-state-machine",
+  "repository": "https://github.com/phenax/use-tiny-state-machine",
   "author": "Akshay Nair <phenax5@gmail.com>",
   "license": "MIT",
   "keywords": [
@@ -42,11 +42,11 @@
     "babel-jest": "^23.6.0",
     "codecov": "^3.1.0",
     "jest": "^23.6.0",
-    "react": "^16.8.6",
+    "react": "^16.8.0",
     "react-test-render-fns": "^0.0.0",
     "terser": "^3.17.0"
   },
   "peerDependencies": {
-    "react": "^16.8.6"
+    "react": "^16.8.0"
   }
 }
