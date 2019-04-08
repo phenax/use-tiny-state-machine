@@ -18,20 +18,42 @@ function callValue(x) {
   return typeof x === 'function' ? x.apply(null, sliceArgs(arguments, 1)) : x;
 }
 
-function useStateMachine(stateChart) {
-  var _useState = (0, _react.useState)(stateChart.initial),
+function usePairState(initial) {
+  var _useState = (0, _react.useState)({
+    cur: initial,
+    prev: null
+  }),
       state = _useState[0],
-      setState = _useState[1]; // :: State<String>
+      setPairState = _useState[1];
+
+  var setState = function setState(state) {
+    return setPairState(function (s) {
+      return {
+        cur: typeof state === 'function' ? state(s.cur) : state,
+        prev: s.cur
+      };
+    });
+  };
+
+  return [state.cur, state.prev, setState];
+}
+
+function useStateMachine(stateChart) {
+  var _usePairState = usePairState(stateChart.initial),
+      state = _usePairState[0],
+      prevState = _usePairState[1],
+      setState = _usePairState[2]; // :: State<String>
 
 
-  var _useState2 = (0, _react.useState)(stateChart.context),
-      context = _useState2[0],
-      updateContext = _useState2[1]; // :: State<Context>
+  var _usePairState2 = usePairState(stateChart.context),
+      context = _usePairState2[0],
+      prevContext = _usePairState2[1],
+      updateContext = _usePairState2[2]; // :: State<Context>
 
 
-  var _useState3 = (0, _react.useState)(null),
-      pendingAction = _useState3[0],
-      setPendingAction = _useState3[1]; // :: State<[Function, ...*]>
+  var _useState2 = (0, _react.useState)(null),
+      pendingAction = _useState2[0],
+      setPendingAction = _useState2[1]; // :: State<[Function, ...*]>
 
 
   (0, _react.useEffect)(function () {
