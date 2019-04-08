@@ -1,7 +1,7 @@
 {
   "name": "use-tiny-state-machine",
   "version": "0.0.1",
-  "description": "A lightweight (~700 bytes) react hook to create and work with state machines",
+  "description": "A tiny (~700 bytes) react hook to help you write finite state machines",
   "main": "index.js",
   "repository": "https://github.com/phenax/use-tiny-state-machine",
   "author": "Akshay Nair <phenax5@gmail.com>",
