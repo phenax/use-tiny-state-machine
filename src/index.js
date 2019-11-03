@@ -9,12 +9,12 @@ function callValue(x) {
 }
 
 function usePairState(initial) {
-  const { 0: state, 1: setPairState } = useState({ cur: initial, prev: null });
-  const setState = state => setPairState(s => ({
-    cur: typeof state === 'function' ? state(s.cur) : state,
-    prev: s.cur,
-  }));
-  return [ state.cur, state.prev, setState ];
+  const { 0: state, 1: setPairState } = useState([initial, null]);
+  const setState = state => setPairState(s => [
+    typeof state === 'function' ? state(s[0]) : state,
+    s[0],
+  ]);
+  return [ state[0], state[1], setState ];
 }
 
 function useStateMachine(stateChart) {

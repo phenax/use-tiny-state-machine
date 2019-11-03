@@ -19,23 +19,17 @@ function callValue(x) {
 }
 
 function usePairState(initial) {
-  var _useState = (0, _react.useState)({
-    cur: initial,
-    prev: null
-  }),
+  var _useState = (0, _react.useState)([initial, null]),
       state = _useState[0],
       setPairState = _useState[1];
 
   var setState = function setState(state) {
     return setPairState(function (s) {
-      return {
-        cur: typeof state === 'function' ? state(s.cur) : state,
-        prev: s.cur
-      };
+      return [typeof state === 'function' ? state(s[0]) : state, s[0]];
     });
   };
 
-  return [state.cur, state.prev, setState];
+  return [state[0], state[1], setState];
 }
 
 function useStateMachine(stateChart) {
