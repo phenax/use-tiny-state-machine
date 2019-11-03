@@ -57,6 +57,11 @@ function useStateMachine(stateChart) {
     newContext && updateContext(newContext);
   }
 
+  function revertToLastState() {
+    prevState && setState(prevState);
+    prevContext && updateContext(prevContext);
+  }
+
   // cata :: { [key: String]: String -> b } -> b
   const cata = pattern => callValue(state in pattern ? pattern[state] : pattern._, stateMachine);
 
@@ -67,7 +72,8 @@ function useStateMachine(stateChart) {
     id: stateChart.id,
     state, dispatch,
     context, updateContext,
-    cata, matches
+    cata, matches,
+    revertToLastState,
   };
 
   return stateMachine;
