@@ -53,6 +53,11 @@ const TrafficLight = ({ onNext = () => {} }) => {
           Prev
         </button>
       </div>
+      <div>
+        <button id="revert" onClick={() => trafficLight.revertToLastState()}>
+          Revert
+        </button>
+      </div>
     </div>
   );
 };

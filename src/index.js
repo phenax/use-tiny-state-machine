@@ -8,9 +8,18 @@ function callValue(x) {
   return typeof x === 'function' ? x.apply(null, sliceArgs(arguments, 1)) : x;
 }
 
+function usePairState(initial) {
+  const { 0: state, 1: setPairState } = useState([initial, null]);
+  const setState = state => setPairState(s => [
+    typeof state === 'function' ? state(s[0]) : state,
+    s[0],
+  ]);
+  return [ state[0], state[1], setState ];
+}
+
 function useStateMachine(stateChart) {
-  const { 0: state, 1: setState } = useState(stateChart.initial); // :: State<String>
-  const { 0: context, 1: updateContext } = useState(stateChart.context); // :: State<Context>
+  const { 0: state, 1: prevState, 2: setState } = usePairState(stateChart.initial); // :: State<String>
+  const { 0: context, 1: prevContext, 2: updateContext } = usePairState(stateChart.context); // :: State<Context>
   const { 0: pendingAction, 1: setPendingAction } = useState(null); // :: State<[Function, ...*]>
 
   useEffect(() => setState(stateChart.initial), [stateChart.initial]);
@@ -48,6 +57,11 @@ function useStateMachine(stateChart) {
     newContext && updateContext(newContext);
   }
 
+  function revertToLastState() {
+    prevState && setState(prevState);
+    prevContext && updateContext(prevContext);
+  }
+
   // cata :: { [key: String]: String -> b } -> b
   const cata = pattern => callValue(state in pattern ? pattern[state] : pattern._, stateMachine);
 
@@ -58,7 +72,8 @@ function useStateMachine(stateChart) {
     id: stateChart.id,
     state, dispatch,
     context, updateContext,
-    cata, matches
+    cata, matches,
+    revertToLastState,
   };
 
   return stateMachine;
