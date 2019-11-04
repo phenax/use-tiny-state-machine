@@ -20,19 +20,21 @@ declare module "use-tiny-state-machine" {
     beforeStateChange?: (sm: StateMachine<S, T, C>) => any
   };
 
-  export type StateChart<S extends string, T extends string, C = any> = {
-    id?: string
-    initial: S
-    context?: C
-    states: {
-      [key in S]: {
-        onEntry?: (sm: StateMachine<S, T, C>) => any
-        on?: {
-          [key in T]: TransitionTarget<S, T, C>
-        }
+  export type StateTransitionMapping<S extends string, T extends string, C = any> = {
+    [key in S]?: {
+      onEntry?: (sm: StateMachine<S, T, C>) => any
+      on?: {
+        [key in T]?: TransitionTarget<S, T, C>
       }
     }
   };
 
-  export default function useStateMachine<S extends string = string, T extends string = string, C = any>(stateChart: StateChart<S, T, C>): StateMachine<S, T, C>;
+  export type StateChart<S extends string, T extends string, C = any> = {
+    id?: string
+    initial: S
+    context?: C
+    states: StateTransitionMapping<S, T, C>
+  };
+
+  export default function useTinyStateMachine<S extends string = string, T extends string = string, C = any>(stateChart: StateChart<S, T, C>): StateMachine<S, T, C>;
 }
