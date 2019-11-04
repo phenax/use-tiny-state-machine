@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = useStateMachine;
 
 var _react = require("react");
 
@@ -95,6 +95,11 @@ function useStateMachine(stateChart) {
     action && setPendingAction([action, args]);
     target && setState(target);
     newContext && updateContext(newContext);
+  }
+
+  function revertToLastState() {
+    prevState && setState(prevState);
+    prevContext && updateContext(prevContext);
   } // cata :: { [key: String]: String -> b } -> b
 
 
@@ -114,10 +119,10 @@ function useStateMachine(stateChart) {
     context: context,
     updateContext: updateContext,
     cata: cata,
-    matches: matches
+    matches: matches,
+    revertToLastState: revertToLastState
   };
   return stateMachine;
 }
 
-var _default = useStateMachine;
-exports.default = _default;
+;

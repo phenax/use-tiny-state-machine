@@ -17,7 +17,7 @@ function usePairState(initial) {
   return [ state[0], state[1], setState ];
 }
 
-function useStateMachine(stateChart) {
+export default function useStateMachine(stateChart) {
   const { 0: state, 1: prevState, 2: setState } = usePairState(stateChart.initial); // :: State<String>
   const { 0: context, 1: prevContext, 2: updateContext } = usePairState(stateChart.context); // :: State<Context>
   const { 0: pendingAction, 1: setPendingAction } = useState(null); // :: State<[Function, ...*]>
@@ -77,6 +77,4 @@ function useStateMachine(stateChart) {
   };
 
   return stateMachine;
-}
-
-export default useStateMachine;
+};

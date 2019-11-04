@@ -47,6 +47,6 @@
     "terser": "^3.17.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": ">=16"
   }
 }
