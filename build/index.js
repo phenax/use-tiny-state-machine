@@ -51,13 +51,14 @@ function useStateMachine(stateChart) {
 
 
   (0, _react.useEffect)(function () {
-    return setState(stateChart.initial);
+    setState(stateChart.initial);
   }, [stateChart.initial]);
   (0, _react.useEffect)(function () {
     var _stateChart$states$st = stateChart.states[state];
     _stateChart$states$st = _stateChart$states$st === void 0 ? {} : _stateChart$states$st;
     var onEntry = _stateChart$states$st.onEntry;
-    return (onEntry || noop)(stateMachine, state);
+    var destroy = (onEntry || noop)(stateMachine, state);
+    return typeof destroy === 'function' ? destroy : function () {};
   }, [state]);
   (0, _react.useEffect)(function () {
     if (!pendingAction) return noop;
@@ -65,7 +66,8 @@ function useStateMachine(stateChart) {
         _pendingAction$ = pendingAction[1],
         args = _pendingAction$ === void 0 ? [] : _pendingAction$;
     setPendingAction(null);
-    return (action || noop).apply(null, [stateMachine].concat(args));
+    var destroy = (action || noop).apply(null, [stateMachine].concat(args));
+    return typeof destroy === 'function' ? destroy : function () {};
   }, [pendingAction]); // dispatch :: (String, ...*) -> ()
 
   function dispatch(transitionName) {

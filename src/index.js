@@ -22,18 +22,22 @@ export default function useStateMachine(stateChart) {
   const { 0: context, 1: prevContext, 2: updateContext } = usePairState(stateChart.context); // :: State<Context>
   const { 0: pendingAction, 1: setPendingAction } = useState(null); // :: State<[Function, ...*]>
 
-  useEffect(() => setState(stateChart.initial), [stateChart.initial]);
+  useEffect(() => {
+    setState(stateChart.initial);
+  }, [stateChart.initial]);
 
   useEffect(() => {
     const { [state]: { onEntry } = {} } = stateChart.states;
-    return (onEntry || noop)(stateMachine, state);
+    const destroy = (onEntry || noop)(stateMachine, state);
+    return typeof destroy === 'function' ? destroy : (() => {});
   }, [state]);
 
   useEffect(() => {
     if (!pendingAction) return noop;
     const { 0: action, 1: args = [] } = pendingAction;
     setPendingAction(null);
-    return (action || noop).apply(null, [stateMachine].concat(args));
+    const destroy = (action || noop).apply(null, [stateMachine].concat(args));
+    return typeof destroy === 'function' ? destroy : (() => {});
   }, [pendingAction]);
 
   // dispatch :: (String, ...*) -> ()

@@ -5,3 +5,8 @@ node_modules
 *.log
 
 coverage
+
+tags
+tags.temp
+tags.lock
+
